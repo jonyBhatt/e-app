@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Home, Info, LogIn, Mail, Search } from "lucide-react";
 import React from "react";
+import { Link } from "react-router";
 
 interface NavItem {
   label: string;
@@ -50,13 +51,15 @@ export const Navbar: React.FC = () => {
                 ))}
               </ul>
 
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="rounded-full bg-primary px-6 py-2 text-sm font-bold text-primary-foreground shadow-md transition-shadow hover:shadow-lg"
-              >
-                সাইন ইন
-              </motion.button>
+              <Link to={"/login"}>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="rounded-full bg-primary px-6 py-2 text-sm font-bold text-primary-foreground shadow-md transition-shadow hover:shadow-lg"
+                >
+                  সাইন ইন
+                </motion.button>
+              </Link>
             </div>
           </div>
         </div>
