@@ -84,13 +84,15 @@ export const Navbar: React.FC = () => {
           })}
 
           {/* Mobile Sign In Icon */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            className="flex flex-col items-center justify-center p-3 text-primary"
-          >
-            <LogIn className="size-6" />
-            <span className="sr-only">সাইন ইন</span>
-          </motion.button>
+          <Link to={"/login"}>
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              className="flex flex-col items-center justify-center p-3 text-primary"
+            >
+              <LogIn className="size-6" />
+              <span className="sr-only">সাইন ইন</span>
+            </motion.button>
+          </Link>
         </div>
       </nav>
 
