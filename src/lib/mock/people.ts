@@ -1,0 +1,52 @@
+import type { Person } from "@/types";
+
+export const people: Person[] = [
+  {
+    id: "001",
+    name: "ব্যক্তি ১",
+    phone: "01710000001",
+    father_name: "পিতা ১",
+    mother_name: "মাতা ১",
+    date_of_birth: "০১/০১/১৯৯০",
+    job: "শিক্ষক",
+    word_no: "০৫",
+    address: {
+      area: "এলাকা ১",
+      locality: "লোকালিটি ১",
+      sub_district: "উপজেলা ১",
+      district: "জেলা ১",
+    },
+  },
+  {
+    id: "002",
+    name: "ব্যক্তি ২",
+    phone: "01710000002",
+    father_name: "পিতা ২",
+    mother_name: "মাতা ২",
+    date_of_birth: "০২/০২/১৯৯১",
+    job: "ব্যবসায়ী",
+    word_no: "০৬",
+    address: {
+      area: "এলাকা ২",
+      locality: "লোকালিটি ২",
+      sub_district: "উপজেলা ২",
+      district: "জেলা ২",
+    },
+  },
+  {
+    id: "003",
+    name: "ব্যক্তি ৩",
+    phone: "01710000003",
+    father_name: "পিতা ৩",
+    mother_name: "মাতা ৩",
+    date_of_birth: "০৩/০৩/১৯৯২",
+    job: "চাকুরীজীবী",
+    word_no: "০৭",
+    address: {
+      area: "এলাকা ৩",
+      locality: "লোকালিটি ৩",
+      sub_district: "উপজেলা ৩",
+      district: "জেলা ৩",
+    },
+  },
+];
