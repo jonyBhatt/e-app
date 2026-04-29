@@ -67,7 +67,7 @@ export const CreativeFooter: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-20 overflow-hidden bg-foreground pt-16 font-sans text-background">
+    <footer className="relative print:hidden mt-20 overflow-hidden bg-foreground pt-16 font-sans text-background">
       {/* Wave Decoration */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-0">
         <svg

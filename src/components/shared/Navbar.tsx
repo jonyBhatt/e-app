@@ -20,7 +20,7 @@ export const Navbar: React.FC = () => {
   return (
     <>
       {/* Desktop Navbar */}
-      <nav className="fixed top-0  z-50 hidden w-full border-b border-border  font-sans  md:block bg-transparent backdrop-blur-2xl">
+      <nav className="fixed top-0 print:hidden  z-50 hidden w-full border-b border-border  font-sans  md:block bg-transparent backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className=" flex h-20  items-center justify-between ">
             {/* Logo with Clamp Typography */}
@@ -68,7 +68,7 @@ export const Navbar: React.FC = () => {
       </nav>
 
       {/* Mobile Bottom Navbar */}
-      <nav className="fixed bottom-0 left-0 z-50 w-full border-t border-border bg-background/95 pb-safe font-sans backdrop-blur-md md:hidden">
+      <nav className="fixed print:hidden bottom-0 left-0 z-50 w-full border-t border-border bg-background/95 pb-safe font-sans backdrop-blur-md md:hidden">
         <div className="flex h-18 items-center justify-around px-2">
           {navLinks.map((link) => {
             const Icon = link.icon;

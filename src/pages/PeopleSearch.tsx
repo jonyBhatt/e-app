@@ -1,4 +1,5 @@
 import { people } from "@/lib/mock/people";
+import { useVoterStore } from "@/store/useVoterStore";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Briefcase,
@@ -8,8 +9,10 @@ import {
   MapPin,
   Search,
   User,
+  X,
 } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 
 export const PeopleSearchPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,6 +20,10 @@ export const PeopleSearchPage: React.FC = () => {
   const [jobFilter, setJobFilter] = useState(""); // Placeholder state
   const [wordFilter, setWordFilter] = useState(""); // Placeholder state
   const [parentName, setParentName] = useState("");
+
+  const { toggleVoter, selectMany, selectedVoters } = useVoterStore();
+
+  const navigate = useNavigate();
 
   // --- Filtering Logic (Optimized with useMemo) ---
   const filteredPeople = useMemo(() => {
@@ -43,6 +50,23 @@ export const PeopleSearchPage: React.FC = () => {
     });
   }, [searchTerm, dobFilter, jobFilter, wordFilter]);
 
+  const handleSelectFirst50 = (wordNo: string) => {
+    const word06Voters = people
+      .filter((p) => p.word_no === wordNo)
+      .slice(0, 50);
+    selectMany(word06Voters);
+  };
+  const handleSelectBatch = () => {
+    // Take the currently filtered list (which could be 200 people)
+    // and grab the first 50 that aren't already selected.
+    const batch = filteredPeople.slice(0, 50);
+    selectMany(batch);
+  };
+
+  const clearAll = () => {
+    useVoterStore.getState().clearAll();
+  };
+
   return (
     <div className="min-h-dvh bg-background p-6 font-sans  flex flex-col items-center justify-center">
       <div className="mx-auto max-w-7xl">
@@ -56,9 +80,9 @@ export const PeopleSearchPage: React.FC = () => {
           </p>
         </header>
 
-        <div className="grid gap-8 lg:grid-cols-4">
+        <div className="grid flex-1 gap-8 grid-cols-1 md:grid-cols-12 overflow-hidden">
           {/* Sidebar Filters */}
-          <aside className="space-y-6 lg:col-span-1">
+          <aside className="space-y-6 col-span-3 overflow-y-auto border-r p-4">
             <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <div className="mb-6 flex items-center gap-2 font-bold text-primary">
                 <Filter className="size-5" /> ফিল্টারসমূহ
@@ -133,12 +157,21 @@ export const PeopleSearchPage: React.FC = () => {
                     className="w-full rounded-xl border border-input bg-muted/50 py-2 px-4 text-sm cursor-not-allowed"
                   />
                 </div>
+
+                <div className="mt-6 pt-6 border-t">
+                  <button
+                    onClick={handleSelectBatch}
+                    className="w-full rounded-lg bg-primary/10 p-3 text-xs font-bold text-primary hover:bg-primary/20 transition-all"
+                  >
+                    ফিল্টারকৃত প্রথম ৫০ জন নির্বাচন করুন
+                  </button>
+                </div>
               </div>
             </div>
           </aside>
 
           {/* Results Grid */}
-          <main className="lg:col-span-3">
+          <main className="lg:col-span-6 overflow-y-auto p-6 bg-muted/20">
             <div className="mb-4 text-sm text-muted-foreground">
               মোট পাওয়া গেছে:{" "}
               <span className="font-bold text-primary">
@@ -150,59 +183,67 @@ export const PeopleSearchPage: React.FC = () => {
             <div className="grid gap-4 md:grid-cols-2">
               <AnimatePresence mode="popLayout">
                 {filteredPeople.map((person) => (
-                  <motion.div
-                    key={person.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
-                    className="group rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-4">
-                        <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-                          <User className="size-6" />
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="checkbox"
+                      checked={selectedVoters.some((v) => v.id === person.id)}
+                      onChange={() => toggleVoter(person)}
+                      className="size-5 rounded accent-primary"
+                    />
+                    <motion.div
+                      key={person.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      className="group rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                            <User className="size-6" />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-bold text-foreground">
+                              {person.name}
+                            </h3>
+                            <p className="text-xs text-muted-foreground">
+                              আইডি: {person.id}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="rounded-lg bg-muted px-2 py-1 text-xs font-bold">
+                          {person.date_of_birth}
+                        </div>
+                      </div>
+
+                      <hr className="my-4 border-border/50" />
+
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <p className="text-xs text-muted-foreground">
+                            পিতার নাম
+                          </p>
+                          <p className="font-medium">{person.father_name}</p>
                         </div>
                         <div>
-                          <h3 className="text-lg font-bold text-foreground">
-                            {person.name}
-                          </h3>
                           <p className="text-xs text-muted-foreground">
-                            আইডি: {person.id}
+                            মাতার নাম
                           </p>
+                          <p className="font-medium">{person.mother_name}</p>
                         </div>
                       </div>
-                      <div className="rounded-lg bg-muted px-2 py-1 text-xs font-bold">
-                        {person.date_of_birth}
+                      <div className="grid grid-cols-2 gap-4 text-sm">
+                        <span className="text-sm">{`ভোটার নং: ${person.voter_no}`}</span>
+                        <span className="text-sm">{`পেশা: ${person.job}`}</span>
                       </div>
-                    </div>
 
-                    <hr className="my-4 border-border/50" />
-
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <p className="text-xs text-muted-foreground">
-                          পিতার নাম
-                        </p>
-                        <p className="font-medium">{person.father_name}</p>
+                      <div className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
+                        <MapPin className="mt-0.5 size-3 shrink-0 text-primary" />
+                        <span>{`${person.address.area}, ${person.address.locality}, ${person.address.sub_district}, ${person.address.district}`}</span>
                       </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">
-                          মাতার নাম
-                        </p>
-                        <p className="font-medium">{person.mother_name}</p>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <span className="text-sm">{`ভোটার নং: ${person.voter_no}`}</span>
-                      <span className="text-sm">{`পেশা: ${person.job}`}</span>
-                    </div>
-
-                    <div className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
-                      <MapPin className="mt-0.5 size-3 shrink-0 text-primary" />
-                      <span>{`${person.address.area}, ${person.address.locality}, ${person.address.sub_district}, ${person.address.district}`}</span>
-                    </div>
-                  </motion.div>
+                    </motion.div>
+                  </div>
                 ))}
               </AnimatePresence>
             </div>
@@ -216,6 +257,59 @@ export const PeopleSearchPage: React.FC = () => {
               </div>
             )}
           </main>
+
+          <aside className="col-span-3 flex flex-col border-l bg-card">
+            <div className="p-4 border-b bg-muted/30 flex justify-between items-center">
+              <h3 className="font-bold">নির্বাচিত তালিকা</h3>
+              <span className="rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
+                {selectedVoters.length}/50
+              </span>
+            </div>
+
+            {/* Selected Users List */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-2">
+              {selectedVoters.length === 0 ? (
+                <div className="mt-20 text-center text-muted-foreground">
+                  <p className="text-sm">কোনো ভোটার নির্বাচিত নেই</p>
+                </div>
+              ) : (
+                selectedVoters.map((voter) => (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    key={voter.id}
+                    className="flex items-center justify-between rounded-lg border bg-background p-2 text-sm"
+                  >
+                    <span className="truncate font-medium">{voter.name}</span>
+                    <button
+                      onClick={() => toggleVoter(voter)}
+                      className="text-muted-foreground hover:text-destructive"
+                    >
+                      <X size={14} />
+                    </button>
+                  </motion.div>
+                ))
+              )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="border-t p-4 space-y-3">
+              <button
+                disabled={selectedVoters.length === 0}
+                onClick={() => navigate("/slip")}
+                className="w-full rounded-xl bg-primary py-3 font-bold text-primary-foreground shadow-lg disabled:opacity-50"
+              >
+                স্লিপ জেনারেট করুন ({selectedVoters.length})
+              </button>
+              <button
+                onClick={() => clearAll()}
+                className="w-full text-xs font-medium text-muted-foreground hover:text-destructive"
+              >
+                সব ক্লিয়ার করুন
+              </button>
+            </div>
+          </aside>
         </div>
       </div>
     </div>

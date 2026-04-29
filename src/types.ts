@@ -15,3 +15,10 @@ export interface Person {
     district: string;
   };
 }
+
+export interface VoterState {
+  selectedVoters: Person[];
+  toggleVoter: (person: Person) => void;
+  clearAll: () => void;
+  selectMany: (people: Person[]) => void;
+}
