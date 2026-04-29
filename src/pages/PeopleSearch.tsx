@@ -1,9 +1,12 @@
 import { people } from "@/lib/mock/people";
+import { cn } from "@/lib/utils";
 import { useVoterStore } from "@/store/useVoterStore";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Briefcase,
   Calendar,
+  ChevronLeft,
+  ChevronRight,
   Filter,
   Hash,
   MapPin,
@@ -11,7 +14,7 @@ import {
   User,
   X,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 
 export const PeopleSearchPage: React.FC = () => {
@@ -20,10 +23,15 @@ export const PeopleSearchPage: React.FC = () => {
   const [jobFilter, setJobFilter] = useState(""); // Placeholder state
   const [wordFilter, setWordFilter] = useState(""); // Placeholder state
   const [parentName, setParentName] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const { toggleVoter, selectMany, selectedVoters } = useVoterStore();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, dobFilter, jobFilter, wordFilter]);
 
   // --- Filtering Logic (Optimized with useMemo) ---
   const filteredPeople = useMemo(() => {
@@ -50,12 +58,6 @@ export const PeopleSearchPage: React.FC = () => {
     });
   }, [searchTerm, dobFilter, jobFilter, wordFilter]);
 
-  const handleSelectFirst50 = (wordNo: string) => {
-    const word06Voters = people
-      .filter((p) => p.word_no === wordNo)
-      .slice(0, 50);
-    selectMany(word06Voters);
-  };
   const handleSelectBatch = () => {
     // Take the currently filtered list (which could be 200 people)
     // and grab the first 50 that aren't already selected.
@@ -66,6 +68,15 @@ export const PeopleSearchPage: React.FC = () => {
   const clearAll = () => {
     useVoterStore.getState().clearAll();
   };
+
+  //Pagination
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(filteredPeople.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedPeople = filteredPeople.slice(
+    startIndex,
+    startIndex + itemsPerPage,
+  );
 
   return (
     <div className="min-h-dvh bg-background p-6 font-sans  flex flex-col items-center justify-center">
@@ -182,21 +193,23 @@ export const PeopleSearchPage: React.FC = () => {
 
             <div className="grid gap-4 md:grid-cols-2">
               <AnimatePresence mode="popLayout">
-                {filteredPeople.map((person) => (
-                  <div className="flex items-center gap-4">
+                {paginatedPeople.map((person) => (
+                  <motion.div
+                    key={person.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="flex items-center gap-4"
+                  >
                     <input
                       type="checkbox"
                       checked={selectedVoters.some((v) => v.id === person.id)}
                       onChange={() => toggleVoter(person)}
-                      className="size-5 rounded accent-primary"
+                      className="size-5 shrink-0 rounded accent-primary"
                     />
-                    <motion.div
-                      key={person.id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      className="group rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md"
+                    <div
+                      className="group flex-1 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md"
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex items-center gap-4">
@@ -242,11 +255,53 @@ export const PeopleSearchPage: React.FC = () => {
                         <MapPin className="mt-0.5 size-3 shrink-0 text-primary" />
                         <span>{`${person.address.area}, ${person.address.locality}, ${person.address.sub_district}, ${person.address.district}`}</span>
                       </div>
-                    </motion.div>
-                  </div>
+                    </div>
+                  </motion.div>
                 ))}
               </AnimatePresence>
             </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="mt-8 flex items-center justify-center gap-2 pb-10">
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className="flex size-10 items-center justify-center rounded-xl border border-border bg-card transition-colors hover:bg-primary/10 disabled:opacity-50"
+                >
+                  <ChevronLeft className="size-5" />
+                </button>
+
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (page) => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={cn(
+                        "flex size-10 items-center justify-center rounded-xl font-bold transition-all",
+                        currentPage === page
+                          ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                          : "border border-border bg-card hover:bg-primary/10",
+                      )}
+                    >
+                      {page}
+                    </button>
+                  ),
+                )}
+
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className="flex size-10 items-center justify-center rounded-xl border border-border bg-card transition-colors hover:bg-primary/10 disabled:opacity-50"
+                >
+                  <ChevronRight className="size-5" />
+                </button>
+              </div>
+            )}
 
             {filteredPeople.length === 0 && (
               <div className="flex flex-col items-center justify-center py-20 text-center">
