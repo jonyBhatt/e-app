@@ -12,7 +12,10 @@ export const ContactForm: React.FC = () => {
   };
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-20 font-sans">
+    <section
+      id="contact"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-20 font-sans"
+    >
       {/* Dynamic Background Elements */}
       <div className="absolute top-0 left-0 -z-10 h-full w-full opacity-30">
         <div className="absolute top-[10%] left-[10%] size-96 animate-pulse rounded-full bg-primary/20 blur-[120px]" />

@@ -11,9 +11,9 @@ interface NavItem {
 
 const navLinks: NavItem[] = [
   { label: "হোম", href: "/", icon: Home },
-  { label: "সম্পর্কে", href: "/about", icon: Info },
+  { label: "সম্পর্কে", href: "#about", icon: Info },
   { label: "অনুসন্ধান", href: "/search", icon: Search },
-  { label: "যোগাযোগ", href: "/contact", icon: Mail },
+  { label: "যোগাযোগ", href: "#contact", icon: Mail },
 ];
 
 export const Navbar: React.FC = () => {
@@ -24,13 +24,15 @@ export const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className=" flex h-20  items-center justify-between ">
             {/* Logo with Clamp Typography */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-[clamp(1.5rem,4vw,2.2rem)] font-bold tracking-tighter text-primary"
-            >
-              ই-অ্যাপ
-            </motion.div>
+            <Link to="/">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="text-[clamp(1.5rem,4vw,2.2rem)] font-bold tracking-tighter text-primary"
+              >
+                ই-অ্যাপ
+              </motion.div>
+            </Link>
 
             <div className="flex items-center gap-10">
               <ul className="flex items-center gap-8">

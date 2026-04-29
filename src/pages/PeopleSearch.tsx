@@ -193,6 +193,10 @@ export const PeopleSearchPage: React.FC = () => {
                         <p className="font-medium">{person.mother_name}</p>
                       </div>
                     </div>
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <span className="text-sm">{`ভোটার নং: ${person.voter_no}`}</span>
+                      <span className="text-sm">{`পেশা: ${person.job}`}</span>
+                    </div>
 
                     <div className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
                       <MapPin className="mt-0.5 size-3 shrink-0 text-primary" />

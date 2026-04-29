@@ -3,6 +3,7 @@ import type { Person } from "@/types";
 export const people: Person[] = [
   {
     id: "001",
+    voter_no: "123456",
     name: "ব্যক্তি ১",
     phone: "01710000001",
     father_name: "পিতা ১",
@@ -19,6 +20,7 @@ export const people: Person[] = [
   },
   {
     id: "002",
+    voter_no: "123457",
     name: "ব্যক্তি ২",
     phone: "01710000002",
     father_name: "পিতা ২",
@@ -35,6 +37,7 @@ export const people: Person[] = [
   },
   {
     id: "003",
+    voter_no: "123458",
     name: "ব্যক্তি ৩",
     phone: "01710000003",
     father_name: "পিতা ৩",

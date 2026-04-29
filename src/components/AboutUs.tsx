@@ -29,7 +29,10 @@ export const AboutUs: React.FC = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-background py-20 px-6 md:py-24">
+    <section
+      id="about"
+      className="relative overflow-hidden bg-background py-20 px-6 md:py-24"
+    >
       <div className="mx-auto max-w-7xl w-full">
         <div className="grid items-center gap-12 md:grid-cols-2">
           {/* Article Content - Slides from Left */}

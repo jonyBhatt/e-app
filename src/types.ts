@@ -1,5 +1,6 @@
 export interface Person {
   id: string;
+  voter_no?: string;
   name: string;
   phone: string;
   father_name: string;
