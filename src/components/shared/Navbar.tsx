@@ -73,15 +73,14 @@ export const Navbar: React.FC = () => {
           {navLinks.map((link) => {
             const Icon = link.icon;
             return (
-              <motion.a
+              <a
                 key={link.href}
                 href={link.href}
-                whileTap={{ y: -5 }}
                 className="flex flex-col items-center justify-center p-3 text-muted-foreground active:text-primary"
               >
                 <Icon className="size-6" />
                 <span className="sr-only">{link.label}</span>
-              </motion.a>
+              </a>
             );
           })}
 
