@@ -1,0 +1,219 @@
+import { people } from "@/lib/mock/people";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  Briefcase,
+  Calendar,
+  Filter,
+  Hash,
+  MapPin,
+  Search,
+  User,
+} from "lucide-react";
+import { useMemo, useState } from "react";
+
+export const PeopleSearchPage: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [dobFilter, setDobFilter] = useState("");
+  const [jobFilter, setJobFilter] = useState(""); // Placeholder state
+  const [wordFilter, setWordFilter] = useState(""); // Placeholder state
+  const [parentName, setParentName] = useState("");
+
+  // --- Filtering Logic (Optimized with useMemo) ---
+  const filteredPeople = useMemo(() => {
+    return people.filter((person) => {
+      const matchesName = person.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesFatherName =
+        person.father_name.toLowerCase().includes(parentName.toLowerCase()) ||
+        person.mother_name.toLowerCase().includes(parentName.toLowerCase());
+      const matchesDob = person.date_of_birth.includes(dobFilter);
+      const matchesJob = jobFilter ? person.job?.includes(jobFilter) : true;
+      const matchesWord = wordFilter
+        ? person.word_no?.includes(wordFilter)
+        : true;
+
+      return (
+        matchesName &&
+        matchesDob &&
+        matchesJob &&
+        matchesWord &&
+        matchesFatherName
+      );
+    });
+  }, [searchTerm, dobFilter, jobFilter, wordFilter]);
+
+  return (
+    <div className="min-h-dvh bg-background p-6 font-sans  flex flex-col items-center justify-center">
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <header className="mb-10">
+          <h1 className="font-serif text-3xl font-bold text-foreground">
+            ভোটার অনুসন্ধান
+          </h1>
+          <p className="text-muted-foreground">
+            আপনার প্রয়োজনীয় তথ্য খুঁজে পেতে ফিল্টার ব্যবহার করুন
+          </p>
+        </header>
+
+        <div className="grid gap-8 lg:grid-cols-4">
+          {/* Sidebar Filters */}
+          <aside className="space-y-6 lg:col-span-1">
+            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+              <div className="mb-6 flex items-center gap-2 font-bold text-primary">
+                <Filter className="size-5" /> ফিল্টারসমূহ
+              </div>
+
+              <div className="space-y-4">
+                {/* Search Input */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">নাম দিয়ে খুঁজুন</label>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      type="text"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      placeholder="নাম লিখুন..."
+                      className="w-full rounded-xl border border-input bg-background py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                </div>
+
+                {/* Father Name Filter */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">পিতা/মাতার নাম</label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      type="text"
+                      value={parentName}
+                      onChange={(e) => setParentName(e.target.value)}
+                      placeholder="নাম লিখুন..."
+                      className="w-full rounded-xl border border-input bg-background py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                </div>
+
+                {/* DOB Filter */}
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">জন্ম তারিখ</label>
+                  <div className="relative">
+                    <Calendar className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      type="text"
+                      value={dobFilter}
+                      onChange={(e) => setDobFilter(e.target.value)}
+                      placeholder="দিন/মাস/বছর"
+                      className="w-full rounded-xl border border-input bg-background py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20"
+                    />
+                  </div>
+                </div>
+
+                {/* Job Filter (Future Integration) */}
+                <div className="space-y-2 opacity-60">
+                  <label className="text-sm font-medium flex items-center gap-2">
+                    <Briefcase className="size-4" /> পেশা (শীঘ্রই আসছে)
+                  </label>
+                  <input
+                    disabled
+                    type="text"
+                    className="w-full rounded-xl border border-input bg-muted/50 py-2 px-4 text-sm cursor-not-allowed"
+                  />
+                </div>
+
+                {/* Word No Filter (Future Integration) */}
+                <div className="space-y-2 opacity-60">
+                  <label className="text-sm font-medium flex items-center gap-2">
+                    <Hash className="size-4" /> ওয়ার্ড নং (শীঘ্রই আসছে)
+                  </label>
+                  <input
+                    disabled
+                    type="text"
+                    className="w-full rounded-xl border border-input bg-muted/50 py-2 px-4 text-sm cursor-not-allowed"
+                  />
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          {/* Results Grid */}
+          <main className="lg:col-span-3">
+            <div className="mb-4 text-sm text-muted-foreground">
+              মোট পাওয়া গেছে:{" "}
+              <span className="font-bold text-primary">
+                {filteredPeople.length}
+              </span>{" "}
+              জন
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              <AnimatePresence mode="popLayout">
+                {filteredPeople.map((person) => (
+                  <motion.div
+                    key={person.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    className="group rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-4">
+                        <div className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                          <User className="size-6" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold text-foreground">
+                            {person.name}
+                          </h3>
+                          <p className="text-xs text-muted-foreground">
+                            আইডি: {person.id}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="rounded-lg bg-muted px-2 py-1 text-xs font-bold">
+                        {person.date_of_birth}
+                      </div>
+                    </div>
+
+                    <hr className="my-4 border-border/50" />
+
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <p className="text-xs text-muted-foreground">
+                          পিতার নাম
+                        </p>
+                        <p className="font-medium">{person.father_name}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground">
+                          মাতার নাম
+                        </p>
+                        <p className="font-medium">{person.mother_name}</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 flex items-start gap-2 text-xs text-muted-foreground">
+                      <MapPin className="mt-0.5 size-3 shrink-0 text-primary" />
+                      <span>{`${person.address.area}, ${person.address.locality}, ${person.address.sub_district}, ${person.address.district}`}</span>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+
+            {filteredPeople.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-20 text-center">
+                <Search className="mb-4 size-12 text-muted-foreground/30" />
+                <p className="text-lg font-medium text-muted-foreground">
+                  কোনো তথ্য পাওয়া যায়নি
+                </p>
+              </div>
+            )}
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+};
