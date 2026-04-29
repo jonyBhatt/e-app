@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { Bell, IdCard, PhoneIncoming, Ticket } from "lucide-react"; // Use your preferred icon library
+import { Link } from "react-router";
 
 // Icons (Placeholders, replace with actual icons like lucide-react)
 const iconClass =
@@ -11,24 +12,28 @@ const services = [
     title: "ভোটার বিস্তারিত",
     brief:
       "আপনার এনআইডি নম্বর বা ফর্ম নম্বর ব্যবহার করে সহজেই আপনার ভোটার তালিকার সমস্ত তথ্য অনলাইনে যাচাই করুন। আপনার নাম, ঠিকানা, এবং ভোটকেন্দ্রের সঠিক তথ্য তাৎক্ষণিকভাবে জেনে নিন।",
+    href: "/search",
   },
   {
     icon: Ticket,
     title: "ভোটার স্লিপ সংগ্রহ",
     brief:
       "ভোটকেন্দ্রে যাওয়ার আগে আপনার ডিজিটাল ভোটার স্লিপটি ডাউনলোড করে প্রিন্ট বা সেভ করে রাখুন। এটি আপনাকে দ্রুত ভোট দিতে এবং লাইনে দাঁড়ানোর সময় বাঁচাতে সাহায্য করবে।",
+    href: "/voter-slip",
   },
   {
     icon: Bell,
     title: "ভোটারদের জন্য SMS",
     brief:
       "নির্বাচন সংক্রান্ত সব গুরুত্বপূর্ণ আপডেট, যেমন- ভোটকেন্দ্রের পরিবর্তন, তারিখ বা ভোটার তালিকার আপডেট সরাসরি আপনার নিবন্ধিত মোবাইল নম্বরে SMS-এর মাধ্যমে পান।",
+    href: "/sms",
   },
   {
     icon: PhoneIncoming,
     title: "ভোটারদের জন্য কল সাপোর্ট",
     brief:
       "ভোটার তথ্য যাচাই বা স্লিপ সংগ্রহে কোনো সমস্যা হলে আমাদের ডেডিকেটেড হেল্পলাইন নম্বরে কল করুন। আমাদের প্রতিনিধিরা আপনাকে সহায়তা করতে সর্বদা প্রস্তুত।",
+    href: "/call",
   },
 ];
 
@@ -91,12 +96,14 @@ export const OurServices: React.FC = () => {
                   </p>
 
                   <div className="mt-auto">
-                    <span className="inline-flex items-center gap-2 text-sm font-bold text-primary group-hover:text-primary-foreground transition-colors cursor-pointer">
-                      বিস্তারিত জানুন
-                      <span className="transition-transform group-hover:translate-x-1">
-                        →
+                    <Link to={service.href}>
+                      <span className="inline-flex items-center gap-2 text-sm font-bold text-primary group-hover:text-primary-foreground transition-colors cursor-pointer">
+                        বিস্তারিত জানুন
+                        <span className="transition-transform group-hover:translate-x-1">
+                          →
+                        </span>
                       </span>
-                    </span>
+                    </Link>
                   </div>
                 </div>
               </motion.div>
