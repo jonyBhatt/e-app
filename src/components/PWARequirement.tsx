@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // Set this to false to allow users to use the web version without forcing app installation
-export const FORCE_PWA_INSTALL = true;
+export const FORCE_PWA_INSTALL = false;
 
 export const PWARequirement = ({ children }: { children: React.ReactNode }) => {
   const [isStandalone, setIsStandalone] = useState(true); // Default to true to prevent flash
@@ -13,14 +13,16 @@ export const PWARequirement = ({ children }: { children: React.ReactNode }) => {
       const isStandaloneMode =
         window.matchMedia("(display-mode: standalone)").matches ||
         ("standalone" in window.navigator && window.navigator.standalone);
-      
+
       setIsStandalone(!!isStandaloneMode);
     };
 
     checkStandalone();
 
     // Listen for display mode changes
-    window.matchMedia("(display-mode: standalone)").addEventListener("change", checkStandalone);
+    window
+      .matchMedia("(display-mode: standalone)")
+      .addEventListener("change", checkStandalone);
 
     // Listen for the install prompt
     window.addEventListener("beforeinstallprompt", (e) => {
@@ -29,7 +31,9 @@ export const PWARequirement = ({ children }: { children: React.ReactNode }) => {
     });
 
     return () => {
-      window.matchMedia("(display-mode: standalone)").removeEventListener("change", checkStandalone);
+      window
+        .matchMedia("(display-mode: standalone)")
+        .removeEventListener("change", checkStandalone);
     };
   }, []);
 
@@ -41,7 +45,9 @@ export const PWARequirement = ({ children }: { children: React.ReactNode }) => {
         setDeferredPrompt(null);
       }
     } else {
-      alert("Please install the app using your browser's menu (Add to Home Screen).");
+      alert(
+        "Please install the app using your browser's menu (Add to Home Screen).",
+      );
     }
   };
 
@@ -55,19 +61,21 @@ export const PWARequirement = ({ children }: { children: React.ReactNode }) => {
       <div className="max-w-md rounded-2xl bg-zinc-900 p-8 shadow-2xl border border-zinc-800">
         <h2 className="mb-4 text-3xl font-bold">Install App to Continue</h2>
         <p className="mb-8 text-zinc-400">
-          For the best experience, please install our Progressive Web App on your device.
+          For the best experience, please install our Progressive Web App on
+          your device.
         </p>
-        
+
         <button
           onClick={handleInstallClick}
           className="w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700"
         >
           {deferredPrompt ? "Install App Now" : "How to Install?"}
         </button>
-        
+
         {!deferredPrompt && (
           <p className="mt-4 text-sm text-zinc-500">
-            Tap the share button on iOS or menu button on Android, then select "Add to Home Screen".
+            Tap the share button on iOS or menu button on Android, then select
+            "Add to Home Screen".
           </p>
         )}
       </div>

@@ -1,14 +1,21 @@
+import useAuthStore from "@/store/useAuthStore";
 import { motion } from "framer-motion";
 import { ArrowRight, Eye, EyeOff, Lock, ShieldCheck, User } from "lucide-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 
 export const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFocus, setIsFocus] = useState(false);
 
+  const login = useAuthStore((state) => state.login);
+  const navigate = useNavigate();
+
   // Modern Form Submit Handling
   const handleLogin = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+    login();
+    navigate("/");
     console.log("Logging in...");
   };
 
