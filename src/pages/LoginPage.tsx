@@ -20,7 +20,7 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 font-sans">
+    <div className="relative flex min-h-screen md:items-center md:justify-center overflow-hidden bg-background  font-sans">
       {/* Background Interactive Mesh */}
       <motion.div
         animate={{
@@ -30,13 +30,13 @@ export const Login: React.FC = () => {
         transition={{ duration: 1, ease: "easeInOut" }}
         className="absolute -z-10 h-[150%] w-[150%] opacity-20"
       >
-        <div className="absolute top-1/4 left-1/4 size-[600px] rounded-full bg-primary blur-[160px]" />
-        <div className="absolute bottom-1/4 right-1/4 size-[600px] rounded-full bg-chart-2 blur-[160px]" />
+        <div className="absolute top-1/4 left-1/4 size-150 rounded-full bg-primary blur-[160px]" />
+        <div className="absolute bottom-1/4 right-1/4 size-150 rounded-full bg-chart-2 blur-[160px]" />
       </motion.div>
 
-      <div className="grid w-full max-w-5xl gap-0 overflow-hidden rounded-[2.5rem] border border-border/50 bg-card/30 shadow-2xl backdrop-blur-2xl md:grid-cols-2">
+      <div className="grid w-full  gap-0 overflow-hidden sm:rounded-[2.5rem] rounded-none border border-border/50 bg-card/30 shadow-2xl backdrop-blur-2xl md:grid-cols-2">
         {/* Left Side: Branding & Security Message */}
-        <div className="relative hidden flex-col justify-between bg-primary p-12 text-primary-foreground md:flex">
+        <div className="relative flex-col justify-between bg-primary p-12 text-primary-foreground md:flex">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -45,10 +45,10 @@ export const Login: React.FC = () => {
             <div className="inline-flex size-16 items-center justify-center rounded-2xl bg-primary-foreground/10 backdrop-blur-md">
               <ShieldCheck className="size-10" />
             </div>
-            <h1 className="font-serif text-4xl font-bold leading-tight">
+            <h1 className="font-serif hidden md:block text-4xl font-bold leading-tight">
               আপনার তথ্যের নিরাপত্তা <br /> আমাদের অগ্রাধিকার।
             </h1>
-            <p className="text-lg text-primary-foreground/70">
+            <p className="text-3xl text-primary-foreground/70 md:text-xl">
               ই-অ্যাপ পোর্টালে লগইন করে আপনার ভোটার তথ্য ও নির্বাচনী সেবাগুলো
               গ্রহণ করুন।
             </p>
