@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 
 // Set this to false to allow users to use the web version without forcing app installation
-export const FORCE_PWA_INSTALL = false;
+export const FORCE_PWA_INSTALL = true;
+
+// Set this to true to enable automatic download for external links (prevents opening browser)
+// Set to false to allow links to open normally in browser
+export const AUTO_DOWNLOAD_EXTERNAL_LINKS = true;
 
 export const PWARequirement = ({ children }: { children: React.ReactNode }) => {
   const [isStandalone, setIsStandalone] = useState(true); // Default to true to prevent flash
@@ -29,6 +33,34 @@ export const PWARequirement = ({ children }: { children: React.ReactNode }) => {
       e.preventDefault();
       setDeferredPrompt(e);
     });
+
+    // Handle external link downloads
+    if (AUTO_DOWNLOAD_EXTERNAL_LINKS) {
+      const handleLinkClick = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        const link = target.closest("a") as HTMLAnchorElement;
+
+        if (link && link.href) {
+          const isExternalLink =
+            !link.href.startsWith(window.location.origin) &&
+            !link.href.startsWith("/");
+
+          if (isExternalLink) {
+            e.preventDefault();
+            downloadFile(link.href, link.getAttribute("download") || getFilenameFromUrl(link.href));
+          }
+        }
+      };
+
+      document.addEventListener("click", handleLinkClick);
+
+      return () => {
+        window
+          .matchMedia("(display-mode: standalone)")
+          .removeEventListener("change", checkStandalone);
+        document.removeEventListener("click", handleLinkClick);
+      };
+    }
 
     return () => {
       window
@@ -82,3 +114,30 @@ export const PWARequirement = ({ children }: { children: React.ReactNode }) => {
     </div>
   );
 };
+
+// Helper function to download files
+function downloadFile(url: string, filename: string) {
+  const xhr = new XMLHttpRequest();
+  xhr.responseType = "blob";
+  xhr.onload = () => {
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(xhr.response);
+    link.download = filename;
+    link.click();
+    window.URL.revokeObjectURL(link.href);
+  };
+  xhr.open("GET", url);
+  xhr.send();
+}
+
+// Helper function to extract filename from URL
+function getFilenameFromUrl(url: string): string {
+  try {
+    const urlObj = new URL(url);
+    const pathname = urlObj.pathname;
+    const filename = pathname.substring(pathname.lastIndexOf("/") + 1);
+    return filename || "download";
+  } catch {
+    return "download";
+  }
+}

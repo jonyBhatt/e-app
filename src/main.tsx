@@ -9,6 +9,7 @@ import ProtectedRoute from "./lib/ProtectedRoute.tsx";
 import { Login } from "./pages/LoginPage.tsx";
 import { PeopleSearchPage } from "./pages/PeopleSearch.tsx";
 import { SlipPage } from "./pages/SlipPage.tsx";
+import { NotFound } from "./pages/NotFound.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -24,6 +25,8 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/slip" element={<SlipPage />} />
             </Route>
           </Route>
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </PWARequirement>

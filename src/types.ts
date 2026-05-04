@@ -22,3 +22,11 @@ export interface VoterState {
   clearAll: () => void;
   selectMany: (people: Person[]) => void;
 }
+
+export interface Feature {
+  title: string;
+  subtitle: string;
+  badge: string;
+  icon: string; // emoji or icon path
+  href?: string; // optional link for the feature
+}

@@ -16,6 +16,8 @@ const navLinks: NavItem[] = [
   { label: "যোগাযোগ", href: "#contact", icon: Mail },
 ];
 
+
+
 export const Navbar: React.FC = () => {
   return (
     <>
