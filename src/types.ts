@@ -21,6 +21,10 @@ export interface VoterState {
   toggleVoter: (person: Person) => void;
   clearAll: () => void;
   selectMany: (people: Person[]) => void;
+  filters: Filters;
+  setFilters: (filters: Filters) => void;
+  resetFilters: () => void;
+
 }
 
 export interface Feature {
@@ -29,4 +33,10 @@ export interface Feature {
   badge: string;
   icon: string; // emoji or icon path
   href?: string; // optional link for the feature
+}
+
+interface Filters {
+  job: string;
+  word: string;
+  dob: string;
 }

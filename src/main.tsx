@@ -10,6 +10,7 @@ import { Login } from "./pages/LoginPage.tsx";
 import { PeopleSearchPage } from "./pages/PeopleSearch.tsx";
 import { SlipPage } from "./pages/SlipPage.tsx";
 import { NotFound } from "./pages/NotFound.tsx";
+import { PwaVoterSearch } from "./components/pwa/PwaVoterSearch.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -21,7 +22,8 @@ createRoot(document.getElementById("root")!).render(
           <Route element={<ProtectedRoute />}>
             <Route element={<PwaLayout />}>
               <Route path="/" element={<App />} />
-              <Route path="/search" element={<PeopleSearchPage />} />
+              {/* <Route path="/search" element={<PeopleSearchPage />} /> */}
+              <Route path="/search" element={<PwaVoterSearch />} />
               <Route path="/slip" element={<SlipPage />} />
             </Route>
           </Route>

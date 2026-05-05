@@ -27,4 +27,8 @@ export const useVoterStore = create<VoterState>((set) => ({
   }),
 
   clearAll: () => set({ selectedVoters: [] }),
+
+  filters: { job: "", word: "", dob: "" },
+  setFilters: (filters) => set({ filters }),
+  resetFilters: () => set({ filters: { job: "", word: "", dob: "" } }),
 }));
