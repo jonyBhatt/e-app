@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // Set this to false to allow users to use the web version without forcing app installation
-export const FORCE_PWA_INSTALL = false;
+export const FORCE_PWA_INSTALL = true;
 
 // Set this to true to enable automatic download for external links (prevents opening browser)
 // Set to false to allow links to open normally in browser
