@@ -95,7 +95,7 @@ export const CreativeFooter: React.FC = () => {
               className="mb-6"
             >
               <h2 className="text-3xl font-bold tracking-tighter text-primary">
-                ই-অ্যাপ
+                সহজ ইলেকশন
               </h2>
               <p className="mt-4 max-w-xs text-sm leading-relaxed text-background/60">
                 বাংলাদেশের প্রতিটি ভোটারের জন্য একটি আধুনিক ও নিরাপদ ডিজিটাল
@@ -161,7 +161,7 @@ export const CreativeFooter: React.FC = () => {
         <div className="mt-16 border-t border-background/10 pt-8">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <p className="text-xs text-background/40">
-              &copy; {currentYear} ই-অ্যাপ টিম। সর্বস্বত্ব সংরক্ষিত।
+              &copy; {currentYear} সহজ ইলেকশন টিম। সর্বস্বত্ব সংরক্ষিত।
             </p>
 
             <div className="flex items-center gap-8 text-xs font-medium text-background/40">
@@ -172,7 +172,7 @@ export const CreativeFooter: React.FC = () => {
               <p>
                 ডেভেলপড বাই{" "}
                 <span className="text-primary cursor-pointer hover:underline">
-                  ই-অ্যাপ টেক
+                  সহজ ইলেকশন টেক
                 </span>
               </p>
             </div>

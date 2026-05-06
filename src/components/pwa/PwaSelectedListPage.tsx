@@ -18,7 +18,7 @@ export const SelectedListPage = ({ onBack }: { onBack: () => void }) => {
                 <button onClick={onBack} className="rounded-full p-2 hover:bg-gray-100">
                     <ArrowLeft className="size-6 text-[#1E3A8A]" />
                 </button>
-                <h1 className="text-xl font-bold text-[#1E3A8A]">ভোটার ব্যবস্থাপনা</h1>
+                <h1 className="text-xl font-bold text-[#1E3A8A]">সহজ ইলেকশন</h1>
                 <div className="flex size-10 items-center justify-center rounded-full bg-[#1E3A8A] text-white">
                     <User className="size-6" />
                 </div>

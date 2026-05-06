@@ -49,13 +49,13 @@ export const Login: React.FC = () => {
               আপনার তথ্যের নিরাপত্তা <br /> আমাদের অগ্রাধিকার।
             </h1>
             <p className="text-3xl text-primary-foreground/70 md:text-xl">
-              ই-অ্যাপ পোর্টালে লগইন করে আপনার ভোটার তথ্য ও নির্বাচনী সেবাগুলো
+              সহজ ইলেকশন পোর্টালে লগইন করে আপনার ভোটার তথ্য ও নির্বাচনী সেবাগুলো
               গ্রহণ করুন।
             </p>
           </motion.div>
 
           <div className="flex gap-4 text-sm font-medium text-primary-foreground/50">
-            <span>© ২০২৬ ই-অ্যাপ</span>
+            <span>© ২০২৬ সহজ ইলেকশন</span>
             <span>•</span>
             <span>সহায়তা</span>
           </div>

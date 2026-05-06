@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import { Home, Info, Mail, Menu, Search } from "lucide-react";
 import { Link } from "react-router";
+import Logo from "@/assets/logo.webp";
 
 const navLinks = [
   { label: "হোম", href: "/", icon: Home },
@@ -18,7 +19,7 @@ const navLinks = [
 
 export default function PwaHeader() {
   return (
-    <nav className="p-4 h-16 bg-blue-700 flex items-center justify-between">
+    <nav className="p-4 h-20 bg-blue-700 flex items-center justify-between">
       {/* Left: Menu Button */}
       <Sheet>
         <SheetTrigger className="text-white">
@@ -27,7 +28,7 @@ export default function PwaHeader() {
 
         <SheetContent side="left" className="w-64">
           <SheetHeader>
-            <SheetTitle className="text-lg font-bold">ই-অ্যাপ</SheetTitle>
+            <SheetTitle className="text-lg font-bold">সহজ ইলেকশন</SheetTitle>
           </SheetHeader>
 
           {/* Navigation Links */}
@@ -51,10 +52,19 @@ export default function PwaHeader() {
       </Sheet>
 
       {/* Center: App Name */}
-      <h1 className="text-white font-semibold text-lg">ই-অ্যাপ</h1>
+      <div className="flex flex-col items-center">
+        <p className="font-sans text-sm text-gray-200">
+          স্বাগতম, আপনার নির্বাচন সহায়ক
+        </p>
+      <h1 className="text-white font-semibold font-sans text-lg">
+        সহজ ইলেকশন
+      </h1>
+      </div>
 
       {/* Right: Optional (empty or icon later) */}
-      <div className="w-6" />
+      <div className="" >
+        <img src={Logo} alt="logo" className="size-14" loading="lazy" />
+      </div>
     </nav>
   );
 }

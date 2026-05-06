@@ -4,8 +4,8 @@ import { useLocation, Link } from 'react-router'
 
 const pwaNavLinks = [
   { label: "হোম", href: "/", icon: Home },
-  { label: "স্লিপ", href: "/slip", icon: UsersRound },
   { label: "অনুসন্ধান", href: "/search", icon: UserRoundSearch },
+  { label: "স্লিপ", href: "/slip", icon: UsersRound },
   { label: "সেটিংস", href: "/settings", icon: Settings },
 ]
 

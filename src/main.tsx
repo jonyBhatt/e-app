@@ -23,8 +23,8 @@ createRoot(document.getElementById("root")!).render(
             <Route element={<PwaLayout />}>
               <Route path="/" element={<App />} />
               {/* <Route path="/search" element={<PeopleSearchPage />} /> */}
-              <Route path="/search" element={<PwaVoterSearch />} />
               <Route path="/slip" element={<SlipPage />} />
+              <Route path="/search" element={<PwaVoterSearch />} />
             </Route>
           </Route>
 

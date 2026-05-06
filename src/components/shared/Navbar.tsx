@@ -32,7 +32,7 @@ export const Navbar: React.FC = () => {
                 animate={{ opacity: 1, x: 0 }}
                 className="text-[clamp(1.5rem,4vw,2.2rem)] font-bold tracking-tighter text-primary"
               >
-                ই-অ্যাপ
+                সহজ ইলেকশন
               </motion.div>
             </Link>
 
