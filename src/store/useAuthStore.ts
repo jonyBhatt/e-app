@@ -8,7 +8,7 @@ type AuthState = {
 };
 
 const useAuthStore = create<AuthState>((set) => ({
-  isAuthenticated: true,
+  isAuthenticated: false,
 
   // set true (login)
   login: () => set({ isAuthenticated: true }),
