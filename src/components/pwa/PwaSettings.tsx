@@ -14,15 +14,17 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router";
 
 export const SettingsPage = () => {
   const [notifications, setNotifications] = useState(true);
+  const navigate = useNavigate()
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-24 font-sans">
       {/* 1. App Header */}
       <header className="sticky top-0 z-50 flex items-center justify-between border-b bg-white px-6 py-3 shadow-sm">
-        <button className="rounded-full p-2 hover:bg-gray-100">
+        <button className="rounded-full p-2 hover:bg-gray-100" onClick={()=> navigate(-1)}>
           <ArrowLeft className="size-6 text-[#1E3A8A]" />
         </button>
         <h1 className="text-xl font-bold text-[#1E3A8A]">ভোটার ব্যবস্থাপনা</h1>
@@ -175,20 +177,5 @@ const SettingItem = ({
       {children}
       {hasArrow && <ChevronRight className="size-5 text-gray-400" />}
     </div>
-  </div>
-);
-
-// Navigation Item
-const NavItem = ({ icon: Icon, label, active = false }: any) => (
-  <div
-    className={cn(
-      "flex flex-col items-center gap-1 px-4 py-1 cursor-pointer transition-all",
-      active
-        ? "text-primary border-t-2 border-primary -mt-[13px] pt-[11px]"
-        : "text-gray-400",
-    )}
-  >
-    <Icon className="size-6" />
-    <span className="text-[10px] font-bold">{label}</span>
   </div>
 );
