@@ -134,13 +134,7 @@ export const SettingsPage = () => {
         </div>
       </main>
 
-      {/* 5. Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 flex justify-around border-t bg-white px-2 py-3 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
-        <NavItem icon={LayoutDashboard} label="ড্যাশবোর্ড" />
-        <NavItem icon={UserRound} label="ভোটার" />
-        <NavItem icon={Users} label="তালিকা" />
-        <NavItem icon={SettingsIcon} label="সেটিংস" active />
-      </nav>
+   
     </div>
   );
 };
