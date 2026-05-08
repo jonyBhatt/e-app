@@ -11,6 +11,8 @@ import { PeopleSearchPage } from "./pages/PeopleSearch.tsx";
 import { SlipPage } from "./pages/SlipPage.tsx";
 import { NotFound } from "./pages/NotFound.tsx";
 import { PwaVoterSearch } from "./components/pwa/PwaVoterSearch.tsx";
+import { SettingsPage } from "./components/pwa/PwaSettings.tsx";
+import { PwaSmsScreen } from "./components/pwa/PwaSmsScreen.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -25,6 +27,8 @@ createRoot(document.getElementById("root")!).render(
               {/* <Route path="/search" element={<PeopleSearchPage />} /> */}
               <Route path="/slip" element={<SlipPage />} />
               <Route path="/search" element={<PwaVoterSearch />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="/sms-center" element={<PwaSmsScreen />} />
             </Route>
           </Route>
 

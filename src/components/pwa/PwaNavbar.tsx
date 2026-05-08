@@ -20,7 +20,7 @@ export const PwaNavbar = () => {
   }
 
   return (
-    <nav className=' px-4 bg-white fixed bottom-0 left-0 right-0 shadow-t z-10 shadow-2xl'>
+    <nav className=' px-4 bg-white fixed bottom-0 left-0 right-0 shadow-t z-10 shadow-2xl print:hidden'>
       <div className='flex justify-between items-center gap-4'>
         {pwaNavLinks.map((link) => {
           const Icon = link.icon

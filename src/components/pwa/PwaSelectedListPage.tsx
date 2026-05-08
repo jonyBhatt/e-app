@@ -6,6 +6,7 @@ import {
 import { useVoterStore } from "@/store/useVoterStore";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
 export const SelectedListPage = ({ onBack }: { onBack: () => void }) => {
     const { selectedVoters, toggleVoter, clearAll } = useVoterStore();
@@ -32,12 +33,14 @@ export const SelectedListPage = ({ onBack }: { onBack: () => void }) => {
 
                 {/* Action Buttons */}
                 <div className="mt-6 grid grid-cols-2 gap-4">
-                <button onClick={()=> navigate("/slip")} className="flex items-center justify-center gap-2 rounded-xl bg-[#00337C] py-4 font-bold text-white shadow-lg shadow-blue-900/20 transition-transform active:scale-95">
+                    <button onClick={() => navigate("/slip")} className="flex items-center justify-center gap-2 rounded-xl bg-[#00337C] py-4 font-bold text-white shadow-lg shadow-blue-900/20 transition-transform active:scale-95">
                         <FileText className="size-5" /> স্লিপ তৈরি করুন
                     </button>
-                    <button className="flex items-center justify-center gap-2 rounded-xl bg-[#2E7D32] py-4 font-bold text-white shadow-lg shadow-green-900/20 transition-transform active:scale-95">
-                        <Send className="size-5" /> এসএমএস পাঠান
-                    </button>
+                    <Link to="/sms-center">
+                        <button className="flex items-center justify-center gap-2 rounded-xl bg-[#2E7D32] py-4 font-bold text-white shadow-lg shadow-green-900/20 transition-transform active:scale-95">
+                            <Send className="size-5" /> এসএমএস পাঠান
+                        </button>
+                    </Link>
                 </div>
 
                 {/* Clear All - Aligned Start */}
