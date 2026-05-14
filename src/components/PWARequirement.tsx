@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // Set this to false to allow users to use the web version without forcing app installation
-export const FORCE_PWA_INSTALL = true
+export const FORCE_PWA_INSTALL = true;
 
 // Set this to true to enable automatic download for external links (prevents opening browser)
 // Set to false to allow links to open normally in browser
@@ -47,7 +47,10 @@ export const PWARequirement = ({ children }: { children: React.ReactNode }) => {
 
           if (isExternalLink) {
             e.preventDefault();
-            downloadFile(link.href, link.getAttribute("download") || getFilenameFromUrl(link.href));
+            downloadFile(
+              link.href,
+              link.getAttribute("download") || getFilenameFromUrl(link.href),
+            );
           }
         }
       };
@@ -92,14 +95,16 @@ export const PWARequirement = ({ children }: { children: React.ReactNode }) => {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950 p-4 text-center text-white">
       <div className="max-w-md rounded-2xl bg-zinc-900 p-8 shadow-2xl border border-zinc-800">
         <h2 className="mb-4 text-3xl font-bold">Install App to Continue</h2>
-        <p className="mb-8 text-zinc-400">
-          For the best experience, please install our Progressive Web App on
-          your device.
+        <p className="mb-2 text-zinc-400">
+          For the best experience, please install our app on your device.
         </p>
+        <span className="text-center bg-primary/20 py-2  text-zinc-300 ">
+          If you are IOS user please use safari for download.
+        </span>
 
         <button
           onClick={handleInstallClick}
-          className="w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700"
+          className="w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700 mt-10"
         >
           {deferredPrompt ? "Install App Now" : "How to Install?"}
         </button>
