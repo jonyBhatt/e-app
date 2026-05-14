@@ -1,15 +1,30 @@
+import { useState } from "react";
 import { useImageUpload } from "@/hooks/useImageUpload";
 import { ArrowLeft, Camera, CheckCircle2, FilePlus, Trash2, User } from "lucide-react";
 import { useNavigate } from "react-router";
+import { toast } from "react-hot-toast";
 
 export const ImageSetting = () => {
   const navigate = useNavigate();
+  const [isSaving, setIsSaving] = useState(false);
 
-  const normalPhoto = useImageUpload();
-  const slipPhoto = useImageUpload();
+  const normalPhoto = useImageUpload("profile");
+  const slipPhoto = useImageUpload("slip");
+
+  const handleSave = () => {
+    if (isSaving) return;
+    setIsSaving(true);
+
+    const toastId = toast.loading("সংরক্ষণ হচ্ছে...");
+
+    setTimeout(() => {
+      setIsSaving(false);
+      toast.success("সংরক্ষণ করা হয়েছে", { id: toastId });
+    }, 5000);
+  };
 
   return (
-    <div className="min-h-dvh bg-[#F8FAFC] pb-10 font-sans">
+    <div className="min-h-dvh bg-[#F8FAFC] pb-20 font-sans">
       <header className="sticky top-0 z-50 flex items-center gap-4 border-b bg-white px-6 py-4">
         <button
           onClick={() => navigate(-1)}
@@ -69,9 +84,7 @@ export const ImageSetting = () => {
             <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-100 py-10 transition-colors hover:border-[#1E3A8A]/30">
               {slipPhoto.preview ? (
                 <div className="flex flex-col items-center gap-4">
-                  <div className="rounded-xl bg-green-50 p-4 text-green-600">
-                    <CheckCircle2 size={32} />
-                  </div>
+                  <img src={slipPhoto.preview} className="h-full object-contain" />
                   <span className="text-sm font-bold text-green-600">স্লিপ ইমেজ লোড হয়েছে</span>
                   <button onClick={slipPhoto.clearImage} className="text-xs text-red-500 underline">রিসেট করুন</button>
                 </div>
@@ -90,8 +103,12 @@ export const ImageSetting = () => {
           </section>
 
           {/* Save Action */}
-          <button className="w-full rounded-2xl bg-[#00337C] py-4 text-lg font-bold text-white shadow-lg shadow-blue-900/20 active:scale-[0.98]">
-            পরিবর্তন সংরক্ষণ করুন
+          <button
+            onClick={handleSave}
+            disabled={isSaving}
+            className="w-full rounded-2xl bg-[#00337C] py-4 text-lg font-bold text-white shadow-lg shadow-blue-900/20 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            {isSaving ? "সংরক্ষণ হচ্ছে..." : "পরিবর্তন সংরক্ষণ করুন"}
           </button>
         </div>
       </main>
