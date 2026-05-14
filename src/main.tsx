@@ -13,6 +13,7 @@ import { NotFound } from "./pages/NotFound.tsx";
 import { PwaVoterSearch } from "./components/pwa/PwaVoterSearch.tsx";
 import { SettingsPage } from "./components/pwa/PwaSettings.tsx";
 import { PwaSmsScreen } from "./components/pwa/PwaSmsScreen.tsx";
+import { ImageSetting } from "./components/pwa/ImageSetting.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -29,6 +30,7 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/search" element={<PwaVoterSearch />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/sms-center" element={<PwaSmsScreen />} />
+              <Route path="/image-setting" element={<ImageSetting />} />
             </Route>
           </Route>
 
