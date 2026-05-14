@@ -12,6 +12,7 @@ import {
   Users,
   Settings as SettingsIcon,
   UserRoundPen,
+  TypeOutline,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
@@ -104,6 +105,16 @@ export const SettingsPage = () => {
               subtitle="ছবি সম্পাদনা"
               hasArrow
               href="/image-setting"
+            />
+
+            <SettingItem
+              icon={TypeOutline}
+              iconBg="bg-purple-50"
+              iconColor="text-indigo-600"
+              title="স্লোগান"
+              subtitle="স্লোগান সেট করুন"
+              hasArrow
+              href="/slogan"
             />
 
             <SettingItem
