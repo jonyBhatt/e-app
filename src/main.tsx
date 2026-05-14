@@ -14,7 +14,8 @@ import { PwaVoterSearch } from "./components/pwa/PwaVoterSearch.tsx";
 import { SettingsPage } from "./components/pwa/PwaSettings.tsx";
 import { PwaSmsScreen } from "./components/pwa/PwaSmsScreen.tsx";
 import { ImageSetting } from "./components/pwa/ImageSetting.tsx";
-
+import { PwaSlogan } from "./components/pwa/PwaSlogan.tsx";
+import { Toaster } from 'react-hot-toast';
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <PWARequirement>
@@ -31,11 +32,13 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/sms-center" element={<PwaSmsScreen />} />
               <Route path="/image-setting" element={<ImageSetting />} />
+              <Route path="/slogan" element={<PwaSlogan />} />
             </Route>
           </Route>
 
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Toaster />
       </BrowserRouter>
     </PWARequirement>
   </StrictMode>,
