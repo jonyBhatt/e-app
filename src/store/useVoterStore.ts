@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { Person, VoterState } from '@/types';
+import {persist} from "zustand/middleware"
 
 
 
@@ -31,4 +32,13 @@ export const useVoterStore = create<VoterState>((set) => ({
   filters: { job: "", word: "", dob: "" },
   setFilters: (filters) => set({ filters }),
   resetFilters: () => set({ filters: { job: "", word: "", dob: "" } }),
+
+  //image
+  profileImage: null,
+  slipImage: null,
+  setProfileImage: (img) => set({ profileImage: img }),
+  setSlipImage: (img) => set({ slipImage: img }),
+
+  slogan:"আপনার স্লোগান এখানে লিখুন",
+  setSlogan:(slogan)=> set({slogan:slogan})
 }));
