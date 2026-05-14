@@ -21,9 +21,21 @@ export interface VoterState {
   toggleVoter: (person: Person) => void;
   clearAll: () => void;
   selectMany: (people: Person[]) => void;
+
+  //filters
   filters: Filters;
   setFilters: (filters: Filters) => void;
   resetFilters: () => void;
+
+  //image
+  profileImage: string | null;
+  slipImage: string | null;
+  setProfileImage: (img: string | null) => void;
+  setSlipImage: (img: string | null) => void;
+
+  //slogan
+  slogan: string;
+  setSlogan: (text: string) => void;
 
 }
 
