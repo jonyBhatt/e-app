@@ -11,10 +11,11 @@ import {
   LayoutDashboard,
   Users,
   Settings as SettingsIcon,
+  UserRoundPen,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export const SettingsPage = () => {
   const [notifications, setNotifications] = useState(true);
@@ -23,18 +24,11 @@ export const SettingsPage = () => {
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-24 font-sans">
       {/* 1. App Header */}
-      <header className="sticky top-0 z-50 flex items-center justify-between border-b bg-white px-6 py-3 shadow-sm">
-        <button className="rounded-full p-2 hover:bg-gray-100" onClick={()=> navigate(-1)}>
+      <header className="sticky top-0 z-50 flex items-center gap-4 border-b bg-white px-6 py-4">
+        <button onClick={() => navigate(-1)} className="rounded-full p-2 hover:bg-gray-100">
           <ArrowLeft className="size-6 text-[#1E3A8A]" />
         </button>
-        <h1 className="text-xl font-bold text-[#1E3A8A]">ভোটার ব্যবস্থাপনা</h1>
-        <div className="size-10 overflow-hidden rounded-full border-2 border-primary/20">
-          <img
-            src="/avatar.jpg"
-            alt="User"
-            className="h-full w-full object-cover"
-          />
-        </div>
+        <h1 className="text-xl font-bold text-[#1E3A8A]">প্সেটিংস</h1>
       </header>
 
       <main className="mx-auto max-w-2xl px-4 pt-6">
@@ -103,6 +97,16 @@ export const SettingsPage = () => {
             />
 
             <SettingItem
+              icon={UserRoundPen}
+              iconBg="bg-indigo-50"
+              iconColor="text-indigo-600"
+              title="ছবি"
+              subtitle="ছবি সম্পাদনা"
+              hasArrow
+              href="/image-setting"
+            />
+
+            <SettingItem
               icon={Shield}
               iconBg="bg-blue-50"
               iconColor="text-blue-600"
@@ -151,8 +155,9 @@ const SettingItem = ({
   isLast,
   iconBg,
   iconColor,
+  href
 }: any) => (
-  <div
+  <Link to={href}
     className={cn(
       "flex items-center justify-between p-5 transition-colors hover:bg-gray-50 cursor-pointer",
       !isLast && "border-b border-gray-100",
@@ -177,5 +182,5 @@ const SettingItem = ({
       {children}
       {hasArrow && <ChevronRight className="size-5 text-gray-400" />}
     </div>
-  </div>
+  </Link>
 );
