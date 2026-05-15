@@ -35,7 +35,7 @@ export const SlipPage = () => {
           {selectedVoters.map((voter, index) => (
             <div
               key={voter.id}
-              className="flex w-full overflow-hidden rounded-xl border border-gray-300 bg-white print:h-60 print:rounded-none print:border-black print:break-inside-avoid"
+              className="flex flex-col print:flex-row w-full overflow-hidden rounded-xl border border-gray-300 bg-white print:h-60 print:rounded-none print:border-black print:break-inside-avoid"
             >
               {/* LEFT COLUMN: The Campaign/Slip Image from Zustand */}
               <div className="relative  border-r border-gray-300 bg-gray-50 print:border-black">
