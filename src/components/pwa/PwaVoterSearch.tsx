@@ -188,11 +188,12 @@ export const PwaVoterSearch: React.FC = () => {
 
         {/* 4. Voter List Table */}
         <div className="mt-6 overflow-hidden rounded-2xl border bg-white shadow-sm">
-          <div className="grid grid-cols-[50px_1fr_1fr_1fr] border-b bg-[#F8FAFC] p-4 text-sm font-bold text-[#64748B]">
+          <div className="grid grid-cols-[50px_1fr_1fr_1fr_100px] border-b bg-[#F8FAFC] p-4 text-sm font-bold text-[#64748B]">
             <div></div>
             <div>নাম</div>
             <div className="text-center">পিতা/মাতা</div>
             <div className="text-right">জন্ম তারিখ</div>
+            <div className="text-right">কার্য</div>
           </div>
 
           <div className="divide-y">
@@ -203,7 +204,7 @@ export const PwaVoterSearch: React.FC = () => {
                   key={person.id}
                   onClick={() => toggleVoter(person)}
                   className={cn(
-                    "grid grid-cols-[50px_1fr_1fr_1fr] items-center p-4 transition-colors cursor-pointer",
+                    "grid grid-cols-[50px_1fr_1fr_1fr_100px] items-center p-4 transition-colors cursor-pointer",
                     isSelected ? "bg-[#EFF6FF]" : "hover:bg-gray-50",
                   )}
                 >
@@ -223,6 +224,18 @@ export const PwaVoterSearch: React.FC = () => {
                   </div>
                   <div className="text-right text-sm text-[#475569]">
                     {person.date_of_birth}
+                  </div>
+                  <div className="text-right">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/voter/${person.id}`);
+                      }}
+                      className="inline-flex items-center gap-2 rounded-full bg-[#1E40AF] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#1d3b8f]"
+                    >
+                      <Eye className="size-4" /> দেখুন
+                    </button>
                   </div>
                 </div>
               );
